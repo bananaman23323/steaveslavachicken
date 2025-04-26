@@ -28,13 +28,31 @@
         const audio = document.getElementById('bg-audio');
         const img = document.getElementById('hover-img');
 
+        function unmuteIfHovering() {
+            const rect = img.getBoundingClientRect();
+            const isHovering = (
+                window.event &&
+                window.event.clientX >= rect.left &&
+                window.event.clientX <= rect.right &&
+                window.event.clientY >= rect.top &&
+                window.event.clientY <= rect.bottom
+            );
+            if (isHovering) {
+                audio.muted = false;
+                audio.play();
+            }
+        }
+
         img.addEventListener('mouseenter', () => {
             audio.muted = false;
             audio.play();
         });
 
-        img.addEventListener('mouseleave', () => {
-            audio.muted = true;
+        window.addEventListener('load', () => {
+            // Small delay to make sure everything is ready
+            setTimeout(() => {
+                unmuteIfHovering();
+            }, 100);
         });
     </script>
 
