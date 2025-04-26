@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Background Sound</title>
+    <title>Hover to Unmute Fullscreen</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <audio src="https://github.com/bananaman23323/steaveslavachicken/raw/refs/heads/main/lavaChicken.wav" autoplay loop hidden></audio>
+
+    <audio id="bg-audio" src="https://github.com/bananaman23323/steaveslavachicken/raw/refs/heads/main/lavaChicken.wav" autoplay loop muted></audio>
+
+    <img id="hover-img" src="https://via.placeholder.com/1920x1080.png?text=Hover+Me" alt="Hover to Unmute">
+
+    <script>
+        const audio = document.getElementById('bg-audio');
+        const img = document.getElementById('hover-img');
+
+        img.addEventListener('mouseenter', () => {
+            audio.muted = false;
+            audio.play();
+        });
+
+        img.addEventListener('mouseleave', () => {
+            audio.muted = true;
+        });
+    </script>
+
 </body>
 </html>
