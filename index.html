@@ -37,16 +37,25 @@
 
         img.addEventListener('mouseenter', startMusic);
 
+        // Capture mouse position globally
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        });
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const rect = img.getBoundingClientRect();
                 const isHovering = (
-                    window.event &&
-                    window.event.clientX >= rect.left &&
-                    window.event.clientX <= rect.right &&
-                    window.event.clientY >= rect.top &&
-                    window.event.clientY <= rect.bottom
+                    mouseX >= rect.left &&
+                    mouseX <= rect.right &&
+                    mouseY >= rect.top &&
+                    mouseY <= rect.bottom
                 );
+                console.log("Is hovering:", isHovering);
                 if (isHovering) {
                     startMusic();
                 }
