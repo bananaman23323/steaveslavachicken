@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hover to Unmute Fullscreen</title>
+    <title>Hover to Start Music</title>
     <style>
         html, body {
             height: 100%;
@@ -22,36 +22,34 @@
 
     <audio id="bg-audio" src="https://github.com/bananaman23323/steaveslavachicken/raw/refs/heads/main/lavaChicken.wav" autoplay loop muted></audio>
 
-    <img id="hover-img" src="https://via.placeholder.com/1920x1080.png?text=Hover+Me" alt="Hover to Unmute">
+    <img id="hover-img" src="https://raw.githubusercontent.com/bananaman23323/steaveslavachicken/main/white.png" alt="Hover to Start Music">
 
     <script>
         const audio = document.getElementById('bg-audio');
         const img = document.getElementById('hover-img');
 
-        function unmuteIfHovering() {
-            const rect = img.getBoundingClientRect();
-            const isHovering = (
-                window.event &&
-                window.event.clientX >= rect.left &&
-                window.event.clientX <= rect.right &&
-                window.event.clientY >= rect.top &&
-                window.event.clientY <= rect.bottom
-            );
-            if (isHovering) {
+        function startMusic() {
+            if (audio.muted) {
                 audio.muted = false;
                 audio.play();
             }
         }
 
-        img.addEventListener('mouseenter', () => {
-            audio.muted = false;
-            audio.play();
-        });
+        img.addEventListener('mouseenter', startMusic);
 
         window.addEventListener('load', () => {
-            // Small delay to make sure everything is ready
             setTimeout(() => {
-                unmuteIfHovering();
+                const rect = img.getBoundingClientRect();
+                const isHovering = (
+                    window.event &&
+                    window.event.clientX >= rect.left &&
+                    window.event.clientX <= rect.right &&
+                    window.event.clientY >= rect.top &&
+                    window.event.clientY <= rect.bottom
+                );
+                if (isHovering) {
+                    startMusic();
+                }
             }, 100);
         });
     </script>
